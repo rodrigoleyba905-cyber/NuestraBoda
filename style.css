@@ -1,3 +1,4 @@
+
 /* VARIABLES */
 
 :root {
@@ -20,19 +21,41 @@ body {
     color: var(--text);
 }
 
-/* ================= HERO ================= */
+/* ================= NUEVAS ANIMACIONES (Flotado y Brillo) ================= */
 
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes gold-glow {
+    0% { filter: drop-shadow(0 0 2px rgba(198, 169, 109, 0.2)); }
+    50% { filter: drop-shadow(0 0 10px rgba(198, 169, 109, 0.6)); }
+    100% { filter: drop-shadow(0 0 2px rgba(198, 169, 109, 0.2)); }
+}
+
+/* ================= HERO ================= */
 .hero {
-    height: 90vh;
-    background: url('') center/60% no-repeat;
+    /* 1. Usamos solo el nombre del archivo porque ya está en la misma carpeta */
+    background-image: url('manos.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    
+    /* 2. Propiedades de diseño y alineación que ya tenías */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
     text-align: center;
     overflow: hidden;
+    
+    /* 3. Definimos el tamaño y la posición una sola vez */
+    height: 100vh; 
+    position: relative; 
 }
+
 
 .overlay {
     position: absolute;
@@ -44,6 +67,8 @@ body {
     position: relative;
     z-index: 2;
     color: white;
+    /* Efecto flotante al contenido principal */
+    animation: float 5s ease-in-out infinite;
 }
 
 .logo {
@@ -56,11 +81,14 @@ body {
     align-items: center;
     font-family: 'Great Vibes';
     font-size: 2rem;
+    /* Brillo dorado animado */
+    animation: gold-glow 3s infinite ease-in-out;
 }
 
 .hero h1 {
     font-family: 'Great Vibes';
     font-size: 4.5rem;
+    text-shadow: 2px 4px 10px rgba(0,0,0,0.3);
 }
 
 .fecha {
@@ -85,10 +113,14 @@ body {
     color: white;
     text-align: center;
     transition: 0.3s;
+    /* Flotado independiente */
+    animation: float 4s ease-in-out infinite;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
 }
 
 .time-box:hover {
     transform: translateY(-5px);
+    background: rgba(255,255,255,0.25);
 }
 
 .time-box span {
@@ -110,6 +142,7 @@ body {
     margin: auto;
     font-style: italic;
     line-height: 1.6;
+    animation: float 6s ease-in-out infinite;
 }
 
 /* ================= PADRES ================= */
@@ -124,6 +157,7 @@ body {
     font-size: 2.3rem;
     color: var(--gold);
     margin: 30px 0;
+    animation: float 4s ease-in-out infinite;
 }
 
 .parents-container {
@@ -149,6 +183,7 @@ body {
     font-family: 'Great Vibes';
     font-size: 2rem;
     color: var(--gold);
+    animation: float 3s ease-in-out infinite;
 }
 
 /* ================= ORNAMENTOS ================= */
@@ -159,6 +194,7 @@ body {
     align-items: center;
     gap: 10px;
     color: var(--gold);
+    animation: float 5s ease-in-out infinite;
 }
 
 .line {
@@ -169,23 +205,65 @@ body {
 
 /* ================= GALERÍA ================= */
 
+/* --- ESTILOS PARA LA GALERÍA DESORDENADA CON SOMBRA --- */
+
 .gallery {
     display: flex;
-    flex-direction: column;
-    gap: 30px;
+    flex-direction: column; /* Mantiene la disposición en columna para móviles */
+    gap: 30px; /* Espacio entre las imágenes */
+    padding: 20px;
+    align-items: center; /* Centra las imágenes horizontalmente */
 }
 
 .gallery img {
-    width: 280px;
-    margin: auto;
-    background: white;
-    padding: 10px;
-    transform: rotate(-2deg);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    width: 280px; /* Ancho de la imagen */
+    height: auto; /* Mantiene la proporción */
+    background-color: white; /* Color del marco */
+    padding: 15px; /* Grosor del marco */
+    border-radius: 8px; /* Bordes ligeramente redondeados para más suavidad */
+    
+    /* EFECTO DE SOMBRA PROFUNDA */
+    /* box-shadow: horizontal vertical desenfoque propagación color */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); 
+    
+    /* TRANSICIÓN SUAVE (Opcional, para cuando pasas el ratón) */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* --- APLICANDO ROTACIONES INDIVIDUALES PARA EL EFECTO DESORDENADO --- */
+
+/* Primera imagen: Rotación ligera hacia la izquierda */
+.gallery img:nth-child(1) {
+    transform: rotate(-3deg);
+}
+
+/* Segunda imagen: Rotación ligera hacia la derecha */
 .gallery img:nth-child(2) {
-    transform: rotate(2deg);
+    transform: rotate(3deg);
+}
+
+/* Puedes añadir más reglas si tienes más imágenes */
+/* .gallery img:nth-child(3) {
+    transform: rotate(-2deg);
+} */
+
+/* --- EFECTO AL PASAR EL RATÓN (HOVER) - OPCIONAL --- */
+/* Hace que la foto se "levante" un poco y se enderece */
+.gallery img:hover {
+    transform: rotate(0deg) scale(1.05); /* Se endereza y agranda un poco */
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3); /* Sombra más fuerte al levantarse */
+}
+
+.titulo-emocion {
+    color: var(--gold); /* El mismo tono dorado de tu paleta */
+    font-family: 'Great Vibes', cursive; /* La misma cursiva de los nombres */
+    font-size: 3rem; /* Tamaño más grande para que destaque bien */
+    font-weight: 400; 
+    margin-bottom: 5px; /* Un poco de espacio antes de sus nombres */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5); /* Sombra para resaltar sobre el fondo */
+    
+    /* Mantenemos el brillo animado para darle un toque mágico */
+    animation: gold-glow 3s infinite ease-in-out; 
 }
 
 /* ================= CARDS ================= */
@@ -195,10 +273,13 @@ body {
     padding: 30px;
     border-radius: 15px;
     transition: 0.3s;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    animation: float 7s ease-in-out infinite;
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 
 /* ================= GRID ================= */
@@ -220,10 +301,13 @@ button {
     cursor: pointer;
     transition: 0.3s;
     border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(198, 169, 109, 0.3);
 }
 
 button:hover {
     background: #b89655;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(198, 169, 109, 0.5);
 }
 
 /* ================= MENSAJE ================= */
@@ -236,7 +320,7 @@ button:hover {
 /* ================= ANIMACIONES ================= */
 
 .fade {
-    opacity: 0;
+    /*opacity: 0;*/
     transform: translateY(40px);
     transition: 1s ease;
 }
@@ -269,11 +353,13 @@ button:hover {
     }
 
 }
+
 .logo img {
     width: 100px;
     height: auto;
     filter: brightness(0) invert(1); /* blanco elegante sobre fondo oscuro */
 }
+
 .wedding-logo {
     width: 100px;  
     height: auto;
@@ -281,7 +367,8 @@ button:hover {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3)); /* Esto le da profundidad al dorado */
+    filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3)); 
+    animation: float 4s ease-in-out infinite, gold-glow 4s infinite;
 }
 
 .wedding-novios {
@@ -291,7 +378,8 @@ button:hover {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3)); /* Esto le da profundidad al dorado */
+    filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3));
+    animation: float 5s ease-in-out infinite;
 }
 
 .wedding-flores {
@@ -301,15 +389,16 @@ button:hover {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3)); /* Esto le da profundidad al dorado */
+    filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3));
+    animation: float 6s ease-in-out infinite;
 }
 
 /* Estilo para las imágenes de los eventos */
 .event-img {
     width: 100%;
-    height: 180px;      /* Altura fija para que todas las tarjetas midan lo mismo */
-    object-fit: cover;  /* Hace que la imagen llene el espacio sin deformarse */
-    border-radius: 10px 10px 0 0; /* Redondea solo las esquinas de arriba */
+    height: 180px;      
+    object-fit: cover;  
+    border-radius: 10px 10px 0 0; 
     margin-bottom: 15px;
 }
 
@@ -318,14 +407,142 @@ button:hover {
     display: inline-block;
     margin-top: 10px;
     padding: 8px 15px;
-    background-color: #d4af37; /* Un color dorado acorde al logo */
+    background-color: #d4af37; 
     color: white;
     text-decoration: none;
     border-radius: 5px;
     font-size: 0.9em;
     transition: background 0.3s;
+    box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+    animation: float 5s ease-in-out infinite;
 }
 
 .map-btn:hover {
     background-color: #b8860b;
+    transform: scale(1.05);
 }
+
+/* --- MEJORAS DE ELEGANCIA (SOLO CSS) --- */
+
+:root {
+    --gold: #c6a96d;
+    --gold-light: #e4d5b7;
+    --bg: #fdfaf6;
+    --text: #4a4a4a;
+}
+
+/* 1. Marco elegante para las secciones */
+.section, .parents-section {
+    position: relative;
+    overflow: hidden; /* Para que los adornos no se salgan */
+}
+
+/* Esquinas minimalistas (Efecto de invitación de lujo) */
+.section::before, .section::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 1px solid var(--gold-light);
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.section::before {
+    top: 30px;
+    left: 30px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.section::after {
+    bottom: 30px;
+    right: 30px;
+    border-left: none;
+    border-top: none;
+}
+
+/* 2. Sustituto para el Logo (Monograma en CSS) */
+.wedding-monogram {
+    width: 80px;
+    height: 80px;
+    border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    position: relative;
+    transform: rotate(45deg); /* Cuadrado rotado tipo diamante */
+    animation: float 5s ease-in-out infinite;
+}
+
+.monogram-text {
+    transform: rotate(-45deg); /* Enderezamos el texto */
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.2rem;
+    color: white;
+}
+
+/* 3. "Hojas" abstractas con CSS (Sustituye a las flores feas) */
+.leaf-ornament {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.leaf {
+    width: 15px;
+    height: 30px;
+    border: 1px solid var(--gold);
+    border-radius: 0 100%; /* Crea una forma de pétalo/hoja */
+    opacity: 0.5;
+    animation: float 4s ease-in-out infinite;
+}
+
+.leaf:nth-child(even) {
+    transform: rotate(45deg);
+    animation-delay: 1s;
+}
+
+.leaf:nth-child(odd) {
+    transform: rotate(-45deg);
+}
+
+/* 4. Separador de línea infinita */
+.divider {
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 40px auto;
+}
+/* --- ANIMACIÓN DE EMERGENCIA PARA IMÁGENES --- */
+
+/* Estado inicial: ocultas, pequeñas y desplazadas */
+.gallery img.fade {
+    opacity: 0;
+    filter: blur(5px); /* Un toque de desenfoque para suavizar la entrada */
+    transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); /* Curva suave "out-expo" */
+    will-change: transform, opacity;
+}
+
+/* Imagen que sale desde la izquierda */
+.gallery img.fade.slide-left {
+    transform: translateX(-80px) scale(0.8) rotate(-5deg);
+}
+
+/* Imagen que sale desde la derecha */
+.gallery img.fade.slide-right {
+    transform: translateX(80px) scale(0.8) rotate(5deg);
+}
+
+/* Estado final: cuando el JS añade la clase .show */
+.gallery img.fade.show {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0) scale(1) rotate(var(--rotacion-final)); /* Recupera su rotación original de diseño */
+}
+
+/* Variables de rotación para mantener tu estilo de "foto física" */
+.gallery img:nth-child(1) { --rotacion-final: -3deg; }
+.gallery img:nth-child(2) { --rotacion-final: 3deg; }
